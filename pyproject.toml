@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "slackbot-aws"
+version = "0.1.0"
+description = ""
+authors = ["yuta3003 <y.nakazawa3003+github@gmail.com>"]
+readme = "README.md"
+packages = [{include = "slackbot_aws"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+slack-bolt = "^1.16.4"
+boto3 = "^1.26.93"
+requests = "^2.28.2"
+logger = "^1.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
