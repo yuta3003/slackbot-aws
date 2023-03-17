@@ -46,7 +46,6 @@ class EC2:
         elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
             return
         elif state_name == 'stopped':
-
             self.__log.info('try start ec2(%s).' % (self.__instance_id,))
             self.slack.post(
                 self.postChannel,
