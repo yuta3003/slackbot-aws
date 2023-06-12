@@ -1,10 +1,10 @@
-import aws
 import json
+import aws
 
 
 # jsonの読み込み処理
-json_open = open('credentials.json', 'r')
-json = json.load(json_open)
+with open('credentials.json', 'r') as credentials:
+    json = json.load(credentials)
 
 
 def get_ip(ec2_machines):

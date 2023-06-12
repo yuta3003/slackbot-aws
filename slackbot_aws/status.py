@@ -1,11 +1,10 @@
-import aws
 import json
+import aws
 
 
 # jsonの読み込み処理
-json_open = open('credentials.json', 'r')
-json = json.load(json_open)
-
+with open('credentials.json', 'r') as credentials:
+    json = json.load(credentials)
 
 def status_ec2(ec2_machines):
     if ec2_machines is None or len(ec2_machines) == 0:
