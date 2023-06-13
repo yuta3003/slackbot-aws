@@ -36,6 +36,9 @@ class EC2:
     def start(self):
         """
         起動
+
+        :param none:
+        :return none:
         """
         ec2 = self.__create_ec2()
         try:
@@ -71,6 +74,9 @@ class EC2:
     def stop(self):
         """
         停止
+
+        :param none:
+        :return none:
         """
         ec2 = self.__create_ec2()
         try:
@@ -102,6 +108,9 @@ class EC2:
     def status(self):
         """
         ステータス
+
+        :param none:
+        :return none:
         """
         ec2 = self.__create_ec2()
         try:
@@ -119,6 +128,9 @@ class EC2:
     def get_ec2_ip(self):
         """
         IP アドレスを取得
+
+        :param none:
+        :return none:
         """
         ec2 = self.__create_ec2()
         try:

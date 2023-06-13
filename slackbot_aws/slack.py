@@ -17,8 +17,10 @@ class Slack:
     def post(self, post_channel, post_message):
         """
         投稿
-                :param post_channel: 投稿チャンネル
-                :param post_message: 投稿メッセージ
+
+        :param post_channel: 投稿チャンネル
+        :param post_message: 投稿メッセージ
+        :return none:
         """
         url = "https://slack.com/api/chat.postMessage"
         headers = {"Authorization": "Bearer " + self.slack_bot_token}
