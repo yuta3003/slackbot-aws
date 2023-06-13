@@ -1,7 +1,8 @@
+import os
+
 import boto3
 import logger
-import os
-import requests
+# import requests
 from botocore.exceptions import ClientError
 
 import slack
@@ -38,23 +39,22 @@ class EC2:
         except AttributeError as error:
             self.__log.error(error)
 
-        self.__log.debug('state is %s' % (state_name,))
+        self.__log.debug(f'state is {state_name}')
         if state_name == 'running':
-            self.__log.info('ec2(%s) is already started.' % (self.__instance_id,))
+            self.__log.info(f'ec2({self.__instance_id}) is already started.')
             return
-        elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
-            return
+        # elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
+        #     return
         elif state_name == 'stopped':
-            self.__log.info('try start ec2(%s).' % (self.__instance_id,))
+            self.__log.info(f'try start ec2({self.__instance_id}).')
             self.slack.post(
                 self.post_channel,
-                'EC2を起動します。 \nInstance ID: %s'
-                % (self.__instance_id,))
+                f'EC2を起動します。 \nInstance ID: {self.__instance_id}')
 
             ec2.start()
             ec2.wait_until_running()
 
-            self.__log.info('ec2(%s) is started.' % (self.__instance_id,))
+            self.__log.info(f'ec2({self.__instance_id}) is started.')
             self.slack.post(
                 self.post_channel,
                 'Public IP Address: {}\nPrivate IP Address: {}'
@@ -82,25 +82,23 @@ class EC2:
             self.__log.error(error)
             # raise NotFoundResource(e)
 
-        self.__log.debug('state is %s' % (state_name,))
+        self.__log.debug(f'state is {state_name}')
         if state_name == 'stopped':
-            self.__log.info('ec2(%s) is already stopped.' % (self.__instance_id,))
+            self.__log.info(f'ec2({self.__instance_id}) is already stopped.')
             return
-        elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
-            # raise NotSupportError('ec2(%s) is %s.' % (self.__instance_id, state_name))
-            return
+        # elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
+        #     # raise NotSupportError('ec2(%s) is %s.' % (self.__instance_id, state_name))
+        #     return
         elif state_name == 'running':
 
-            self.__log.info('try stop ec2(%s).' % (self.__instance_id,))
+            self.__log.info(f'try stop ec2({self.__instance_id}).')
             self.slack.post(
                 self.post_channel,
-                'EC2を停止します。 \nInstance ID: {}'
-                .format(
-                    self.__instance_id,))
+                f'EC2を停止します。 \nInstance ID: {self.__instance_id}')
 
             ec2.stop()
 
-            self.__log.info('ec2(%s) is stopping.' % (self.__instance_id,))
+            self.__log.info(f'ec2({self.__instance_id}) is stopping.')
             self.slack.post(
                 self.post_channel,
                 'EC2を停止しました。')
@@ -117,13 +115,10 @@ class EC2:
             # 属性stateにアクセスできず例外が発生する
             self.__log.error(error)
             # raise NotFoundResource(e)
-        self.__log.info('ec2(%s) is %s.' % (self.__instance_id, state_name))
+        self.__log.info(f'ec2({self.__instance_id}) is {state_name}.')
         self.slack.post(
             self.post_channel,
-            'ec2({}) is {}.'
-            .format(
-                self.__instance_id,
-                state_name))
+            f'ec2({self.__instance_id}) is {state_name}.')
 
     def get_ec2_ip(self):
         """
@@ -137,15 +132,15 @@ class EC2:
             # 属性stateにアクセスできず例外が発生する
             self.__log.error(error)
 
-        self.__log.debug('state is %s' % (state_name,))
+        self.__log.debug(f'state is {state_name}')
         if state_name in {'pending', 'shutting-down', 'stopped','terminated', 'stopping'}:
-            self.__log.info('ec2(%s) is already stopped.' % (self.__instance_id,))
+            self.__log.info(f'ec2({self.__instance_id}) is already stopped.')
             self.slack.post(
                 self.post_channel,
                 'EC2は起動していません。')
             return
         elif state_name == 'running':
-            self.__log.info('ec2(%s)\'s public ip address is %s.' % (self.__instance_id, ec2.network_interfaces_attribute[0]["Association"]["PublicIp"]))
+            self.__log.info(f'ec2({self.__instance_id})\'s public ip address is {ec2.network_interfaces_attribute[0]["Association"]["PublicIp"]}.')
             self.slack.post(
                 self.post_channel,
                 'Public IP Address: {}\nPrivate IP Address: {}'
@@ -165,7 +160,7 @@ class EC2:
         EC2を操作するオブジェクトを生成する
         :return: EC2を操作するオブジェクト
         """
-        self.__log.debug('ec2: %s' % (self.__instance_id,))
+        self.__log.debug(f'ec2: {self.__instance_id}')
         ec2_resource = self.__local_session.resource('ec2')
         try:
             return ec2_resource.Instance(self.__instance_id)
