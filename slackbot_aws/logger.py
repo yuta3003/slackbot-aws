@@ -1,7 +1,7 @@
 """
 log用モジュール
 """
-from logging import Formatter, handlers, StreamHandler, getLogger, INFO
+from logging import Formatter, StreamHandler, getLogger, INFO
 
 
 class Logger:

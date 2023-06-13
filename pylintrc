@@ -89,18 +89,18 @@ disable=raw-checker-failed,
         ; C0114, # Missing module docstring
         ; C0115, # Missing class docstring
         ; C0116, # Missing function docstring
-        ; C0209, # consider-using-f-string
-        C0301,
-        E0102,
-        E1101,
-        F0401,
-        R0801,
-        R0903,
-        R1705,
-        R1710,
-        W0611,
-        W0612,
-        W3101
+        ; C0209, # Consider-using-f-string
+        C0301, # Line-to-long
+        E0102, # function-redefined
+        E1101, # no-member
+        F0401, # import-error
+        R0801, # duplicate-code
+        R0903, # too-few-public-methods
+        ; R1705, # no-else-return
+        ; R1710, # Inconsistent-return-statements
+        ; W0611, # Unused-import
+        W0612, # Unused-variable
+        W3101 # Missing-timeout
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

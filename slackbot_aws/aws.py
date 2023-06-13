@@ -49,7 +49,7 @@ class EC2:
             return
         # elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
         #     return
-        elif state_name == "stopped":
+        if state_name == "stopped":
             self.__log.info(f"try start ec2({self.__instance_id}).")
             self.slack.post(
                 self.post_channel, f"EC2を起動します。 \nInstance ID: {self.__instance_id}"
@@ -61,9 +61,11 @@ class EC2:
             self.__log.info(f"ec2({self.__instance_id}) is started.")
             self.slack.post(
                 self.post_channel,
-                f"Public IP Address: {ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
+                "Public IP Address: "
+                f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
                 "\n"
-                f"Private IP Address: {ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
+                "Private IP Address: "
+                f"{ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
             )
 
     def stop(self):
@@ -86,7 +88,7 @@ class EC2:
         # elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
         #     # raise NotSupportError('ec2(%s) is %s.' % (self.__instance_id, state_name))
         #     return
-        elif state_name == "running":
+        if state_name == "running":
             self.__log.info(f"try stop ec2({self.__instance_id}).")
             self.slack.post(
                 self.post_channel, f"EC2を停止します。 \nInstance ID: {self.__instance_id}"
@@ -137,15 +139,19 @@ class EC2:
             self.__log.info(f"ec2({self.__instance_id}) is already stopped.")
             self.slack.post(self.post_channel, "EC2は起動していません。")
             return
-        elif state_name == "running":
+        if state_name == "running":
             self.__log.info(
-                f'ec2({self.__instance_id})\'s public ip address is {ec2.network_interfaces_attribute[0]["Association"]["PublicIp"]}.'
+                f"ec2({self.__instance_id})\'s "
+                "public ip address is "
+                f"{ec2.network_interfaces_attribute[0]['Association']['PublicIpi']}."
             )
             self.slack.post(
                 self.post_channel,
-                f"Public IP Address: {ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
+                "Public IP Address: "
+                f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
                 "\n"
-                f"Private IP Address: {ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
+                "Private IP Address: "
+                f"{ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
             )
 
     def __create_ec2(self):
@@ -159,4 +165,5 @@ class EC2:
             return ec2_resource.Instance(self.__instance_id)
         except ClientError as error:
             self.__log.error(error)
+            return None
             # raise NotFoundResource(e)
