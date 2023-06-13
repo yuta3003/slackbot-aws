@@ -23,5 +23,5 @@ class Slack:
             'channel': post_channel,
             'text': post_message
         }
-        # r = requests.post(url, headers=headers, data=data)
-        requests.post(url, headers=headers, data=data)
+        r = requests.post(url, headers=headers, data=data)
+        # requests.post(url, headers=headers, data=data)
