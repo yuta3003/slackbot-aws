@@ -20,6 +20,7 @@ class EC2:
     def __init__(self, instance_id, region_name):
         """
         コンストラクタ
+
         :param instance_id: EC2のインスタンスID
         :param region_name: リージョン名
         """
@@ -169,6 +170,7 @@ class EC2:
     def __create_ec2(self):
         """
         EC2を操作するオブジェクトを生成する
+
         :return: EC2を操作するオブジェクト
         """
         self.__log.debug(f"ec2: {self.__instance_id}")
