@@ -1,3 +1,6 @@
+"""
+slackに投稿するモジュール
+"""
 import os
 import requests
 
@@ -20,4 +23,4 @@ class Slack:
         url = "https://slack.com/api/chat.postMessage"
         headers = {"Authorization": "Bearer " + self.slack_bot_token}
         data = {"channel": post_channel, "text": post_message}
-        r = requests.post(url, headers=headers, data=data)
+        request = requests.post(url, headers=headers, data=data)

@@ -86,11 +86,10 @@ disable=raw-checker-failed,
         useless-suppression,
         deprecated-pragma,
         use-symbolic-message-instead,
-        C0103,
-        C0114,
-        C0115,
-        C0116,
-        C0209,
+        ; C0114, # Missing module docstring
+        ; C0115, # Missing class docstring
+        ; C0116, # Missing function docstring
+        ; C0209, # consider-using-f-string
         C0301,
         E0102,
         E1101,

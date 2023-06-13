@@ -1,3 +1,6 @@
+"""
+AWS 操作モジュール
+"""
 import os
 
 import boto3
@@ -58,12 +61,9 @@ class EC2:
             self.__log.info(f"ec2({self.__instance_id}) is started.")
             self.slack.post(
                 self.post_channel,
-                "Public IP Address: {}\nPrivate IP Address: {}".format(
-                    ec2.network_interfaces_attribute[0]["Association"]["PublicIp"],
-                    ec2.network_interfaces_attribute[0]["PrivateIpAddresses"][0][
-                        "PrivateIpAddress"
-                    ],
-                ),
+                f"Public IP Address: {ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
+                "\n"
+                f"Private IP Address: {ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
             )
 
     def stop(self):
@@ -143,12 +143,9 @@ class EC2:
             )
             self.slack.post(
                 self.post_channel,
-                "Public IP Address: {}\nPrivate IP Address: {}".format(
-                    ec2.network_interfaces_attribute[0]["Association"]["PublicIp"],
-                    ec2.network_interfaces_attribute[0]["PrivateIpAddresses"][0][
-                        "PrivateIpAddress"
-                    ],
-                ),
+                f"Public IP Address: {ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
+                "\n"
+                f"Private IP Address: {ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
             )
 
     def __create_ec2(self):

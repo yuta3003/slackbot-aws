@@ -1,3 +1,6 @@
+"""
+slackbotのスラッシュコマンド用モジュール
+"""
 import json
 import os
 from slack_bolt import App
@@ -20,6 +23,7 @@ app = App(token=slack_bot_token)
 
 @app.command("/run")
 def handle_some_command(ack, body, logger):
+    """ command """
     ack("EC2が起動します。")
     logger.info(body)
     run.start_ec2(json["EC2"])
@@ -27,6 +31,7 @@ def handle_some_command(ack, body, logger):
 
 @app.command("/stop")
 def handle_some_command(ack, body, logger):
+    """ command """
     ack("EC2が停止します。")
     stop.stop_ec2(json["EC2"])
     logger.info(body)
@@ -34,6 +39,7 @@ def handle_some_command(ack, body, logger):
 
 @app.command("/state")
 def handle_some_command(ack, body, logger):
+    """ command """
     ack("EC2のステータスを確認します。")
     status.status_ec2(json["EC2"])
     logger.info(body)
@@ -41,6 +47,7 @@ def handle_some_command(ack, body, logger):
 
 @app.command("/getip")
 def handle_some_command(ack, body, logger):
+    """ command """
     ack("EC2のIPアドレスを取得します。")
     getip.get_ip(json["EC2"])
     logger.info(body)

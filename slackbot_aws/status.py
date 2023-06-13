@@ -1,3 +1,6 @@
+"""
+EC2のステータスを取得するモジュール
+"""
 import json
 import aws
 
@@ -8,6 +11,7 @@ with open("credentials.json", "r", encoding="utf-8") as credentials:
 
 
 def status_ec2(ec2_machines):
+    """ get status """
     if ec2_machines is None or len(ec2_machines) == 0:
         return
     for machine in ec2_machines:

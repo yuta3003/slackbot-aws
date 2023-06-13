@@ -1,3 +1,6 @@
+"""
+Public IP Addressを取得
+"""
 import json
 import aws
 
@@ -8,6 +11,9 @@ with open("credentials.json", "r", encoding="utf-8") as credentials:
 
 
 def get_ip(ec2_machines):
+    """
+    ec2のパブリックIPアドレスを取得します
+    """
     if ec2_machines is None or len(ec2_machines) == 0:
         return
     for machine in ec2_machines:
