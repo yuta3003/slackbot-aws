@@ -1,4 +1,5 @@
 # 環境変数を設定する
+## direnv
 ```
 export AccessKey="XXXXXXXXXXXXXXXXXXX"
 export SecretAccessKey="XXXXXXXXXXXXXXXXXXXXXX"
