@@ -1,5 +1,4 @@
-"""
-slackbotのスラッシュコマンド用モジュール
+"""slackbotのスラッシュコマンド用モジュール
 """
 import json
 import os

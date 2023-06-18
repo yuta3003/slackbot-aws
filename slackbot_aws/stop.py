@@ -1,5 +1,4 @@
-"""
-EC2を停止するモジュール
+"""EC2を停止するモジュール
 """
 import json
 import aws

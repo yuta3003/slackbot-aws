@@ -1,5 +1,4 @@
-"""
-Public IP Addressを取得
+"""Public IP Addressを取得
 """
 import json
 import aws

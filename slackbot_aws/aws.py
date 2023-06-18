@@ -1,5 +1,5 @@
-"""
-AWS 操作モジュール
+"""AWS
+    EC2: EC2を操作するClass
 """
 import os
 
@@ -13,13 +13,15 @@ import slack
 
 
 class EC2:
-    """
-    EC2を起動・停止する機能を提供する
+    """EC2を起動・停止する機能を提供する
+        start: EC2を起動
+        stop : EC2を停止
+        status: EC2の状態を取得
+        get_ec2_ip: EC2のIPアドレスを取得
     """
 
     def __init__(self, instance_id, region_name):
-        """
-        コンストラクタ
+        """コンストラクタ
 
         :param instance_id: EC2のインスタンスID
         :param region_name: リージョン名
@@ -35,8 +37,7 @@ class EC2:
         self.post_channel = "aws"
 
     def start(self):
-        """
-        起動
+        """起動
 
         :param none:
         :return none:
@@ -73,8 +74,7 @@ class EC2:
             )
 
     def stop(self):
-        """
-        停止
+        """停止
 
         :param none:
         :return none:
@@ -107,8 +107,7 @@ class EC2:
             self.slack.post(self.post_channel, "EC2を停止しました。")
 
     def status(self):
-        """
-        ステータス
+        """ statusを取得
 
         :param none:
         :return none:
@@ -127,8 +126,7 @@ class EC2:
         )
 
     def get_ec2_ip(self):
-        """
-        IP アドレスを取得
+        """IP アドレスを取得
 
         :param none:
         :return none:
@@ -168,8 +166,7 @@ class EC2:
             )
 
     def __create_ec2(self):
-        """
-        EC2を操作するオブジェクトを生成する
+        """EC2を操作するオブジェクトを生成する
 
         :return: EC2を操作するオブジェクト
         """

@@ -1,5 +1,4 @@
-"""
-log用モジュール
+"""log用モジュール
 """
 from logging import Formatter, StreamHandler, getLogger, INFO
 

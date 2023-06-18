@@ -1,5 +1,4 @@
-"""
-EC2を起動するモジュール
+"""EC2を起動するモジュール
 """
 import json
 import aws
