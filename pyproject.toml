@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "slackbot-aws"
-version = "0.1.0"
+version = "0.9.0"
 description = ""
 authors = ["yuta3003 <y.nakazawa3003+github@gmail.com>"]
 readme = "README.md"
