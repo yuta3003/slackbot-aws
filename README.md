@@ -8,6 +8,13 @@ export SLACK_APP_TOKEN="xapp-X-XXXXXXXXXX-XXXXXXXXXX-xxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 # Usage
+- rename
+```
+mv credentials.json.template credentials.json
+```
+- edit
+
+
 - package install
 ```
 poetry install
