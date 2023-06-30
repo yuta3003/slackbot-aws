@@ -9,7 +9,7 @@ with open("credentials.json", "r", encoding="utf-8") as credentials:
     json = json.load(credentials)
 
 
-def get_ip(ec2_machines):
+def get_ip(ec2_machines: list):
     """
     ec2のパブリックIPアドレスを取得します
 
