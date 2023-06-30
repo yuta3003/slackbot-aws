@@ -15,7 +15,7 @@ slack_app_token = os.environ["SLACK_APP_TOKEN"]
 
 # jsonの読み込み処理
 with open("credentials.json", "r", encoding="utf-8") as credentials:
-    json: dict[str, list] = json.load(credentials)
+    credential: dict[str, list] = json.load(credentials)
 
 app = App(token=slack_bot_token)
 
@@ -25,14 +25,14 @@ def handle_some_command(ack, body, logger):
     """ command """
     ack("EC2が起動します。")
     logger.info(body)
-    run.start_ec2(json["EC2"])
+    run.start_ec2(credential["EC2"])
 
 
 @app.command("/stop")
 def handle_some_command(ack, body, logger):
     """ command """
     ack("EC2が停止します。")
-    stop.stop_ec2(json["EC2"])
+    stop.stop_ec2(credential["EC2"])
     logger.info(body)
 
 
@@ -40,7 +40,7 @@ def handle_some_command(ack, body, logger):
 def handle_some_command(ack, body, logger):
     """ command """
     ack("EC2のステータスを確認します。")
-    status.status_ec2(json["EC2"])
+    status.status_ec2(credential["EC2"])
     logger.info(body)
 
 
@@ -48,14 +48,14 @@ def handle_some_command(ack, body, logger):
 def handle_some_command(ack, body, logger):
     """ command """
     ack("EC2のIPアドレスを取得します。")
-    getip.get_ip(json["EC2"])
+    getip.get_ip(credential["EC2"])
     logger.info(body)
 
 
 # @app.command("/ip")
 # def handle_some_command(ack, body, logger):
 #    ack("IPアドレスを取得します。")
-#    getIp.get_ip_ec2(json["EC2"])
+#    getIp.get_ip_ec2(credential["EC2"])
 #    logger.info(body)
 
 SocketModeHandler(app, slack_app_token).start()
