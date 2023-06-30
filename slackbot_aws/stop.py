@@ -9,7 +9,7 @@ with open("credentials.json", "r", encoding="utf-8") as credentials:
     json = json.load(credentials)
 
 
-def stop_ec2(ec2_machines):
+def stop_ec2(ec2_machines: list):
     """ stop ec2 """
     if ec2_machines is None or len(ec2_machines) == 0:
         return
