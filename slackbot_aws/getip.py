@@ -6,7 +6,7 @@ import aws
 
 # jsonの読み込み処理
 with open("credentials.json", "r", encoding="utf-8") as credentials:
-    json = json.load(credentials)
+    json: dict[str, list] = json.load(credentials)
 
 
 def get_ip(ec2_machines: list):

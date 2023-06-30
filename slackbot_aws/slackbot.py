@@ -15,7 +15,7 @@ slack_app_token = os.environ["SLACK_APP_TOKEN"]
 
 # jsonの読み込み処理
 with open("credentials.json", "r", encoding="utf-8") as credentials:
-    json = json.load(credentials)
+    json: dict[str, list] = json.load(credentials)
 
 app = App(token=slack_bot_token)
 
