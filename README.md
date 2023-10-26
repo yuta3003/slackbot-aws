@@ -35,7 +35,7 @@ flowchart LR
 
 %%外部要素のUser
 OU1[User]
-OUS[fa:fa-cog Slack]
+OUS[Slack]
 
 %%グループとサービス
 subgraph GC[AWS]
