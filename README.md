@@ -1,3 +1,13 @@
+# TODO
+
+- slackbot作成手順の作成
+- slackbotの配置先をAWSにする
+  - docker imageをECRに登録手順の作成
+  - ECRからECSに登録手順の作成
+  - ネットワーク構成図の作成
+- slackbotのPythonをアップデート
+
+
 # 環境変数を設定する
 ## direnv
 ```
