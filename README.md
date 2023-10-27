@@ -44,9 +44,9 @@ SLACK[Slack]
 %%サービス同士の関係
 Container --> Repository
 Repository --> CodeBuild
-CodeBuild --> ECR
-ECR --> ECS1
-ECR --> ECS2
+CodeBuild --"push"---> ECR
+ECR --"pull"---> ECS1
+ECR --"pull"---> ECS2
 ALB --> ECS1
 ALB --> ECS2
 USER --> SLACK
