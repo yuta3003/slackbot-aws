@@ -6,6 +6,82 @@
   - ECRからECSに登録手順の作成
   - ネットワーク構成図の作成
 - slackbotのPythonをアップデート
+- IAMロールに変更(ECSに適宜ポリシーを追加していく)
+
+
+# AWS構成図
+
+```mermaid
+flowchart LR
+
+subgraph PC[Local PC]
+  subgraph Docker[Docker]
+    Container("container")
+  end
+end
+
+subgraph GitHub[GitHub]
+  Repository[(slackbot-aws)]
+end
+
+subgraph AWS[AWS]
+  CodeBuild[CodeBuild]
+  subgraph VPC[VPC]
+    ECR[(ECR)]
+    subgraph PrivateSubnet[PrivateSubnet]
+      ECS1[ECS]
+      ECS2[ECS]
+    end
+    subgraph PublicSubnet[PublicSubnet]
+      ALB{{ALB}}
+    end
+  end
+end
+
+USER[user]
+SLACK[Slack]
+
+%%サービス同士の関係
+Container --> Repository
+Repository --> CodeBuild
+CodeBuild --> ECR
+ECR --> ECS1
+ECR --> ECS2
+ALB --> ECS1
+ALB --> ECS2
+USER --> SLACK
+SLACK --> ALB
+
+%%グループのスタイル
+classDef SGroup fill:none,color:#345,stroke:#345
+class PC SGroup
+class Docker SGroup
+class GitHub SGroup
+class AWS SGroup
+
+classDef SPublicSubnet fill:#efe,color:#092,stroke:none
+class PublicSubnet SPublicSubnet
+
+classDef SPrivateSubnet fill:#def,color:#07b,stroke:none
+class PrivateSubnet SPrivateSubnet
+
+classDef SVPC fill:none,color:#0a0,stroke:#0a0
+class VPC SVPC
+
+%%サービスのスタイル
+classDef SService fill:#aaa,color:#fff,stroke:#fff
+class OU1,OUS SService
+
+classDef SCP fill:#e83,color:#fff,stroke:none
+class ECS1,ECS2 SCP
+
+classDef SNW fill:#84d,color:#fff,stroke:none
+class ALB SNW
+
+classDef SDB fill:#46d,color:#fff,stroke:#fff
+class ECR,Repository SDB
+```
+
 
 
 # 環境変数を設定する
@@ -37,65 +113,4 @@ poetry shell
 ```
 cd slack_bot
 python slackbot.py
-```
-
-# ネットワーク構成図
-```mermaid
-flowchart LR
-
-%%外部要素のUser
-OU1[User]
-OUS[Slack]
-
-%%グループとサービス
-subgraph GC[AWS]
-  subgraph GV[vpc]
-    subgraph GS1[public subnet]
-      NW1{{"ELB"}}
-    end
-    subgraph GS2[private subnet]
-      CP1("ECS")
-      CP2("ECS")
-    end
-  end
-end
-
-%%サービス同士の関係
-OU1 --> OUS
-OUS --> NW1
-NW1 --> CP1
-NW1 --> CP2
-
-%%グループのスタイル
-classDef SGC fill:none,color:#345,stroke:#345
-class GC SGC
-
-classDef SGV fill:none,color:#0a0,stroke:#0a0
-class GV SGV
-
-classDef SGPrS fill:#def,color:#07b,stroke:none
-class GS2 SGPrS
-
-classDef SGPuS fill:#efe,color:#092,stroke:none
-class GS1 SGPuS
-
-%%サービスのスタイル
-classDef SOU fill:#aaa,color:#fff,stroke:#fff
-class OU1 SOU
-class OUS SOU
-
-classDef SNW fill:#84d,color:#fff,stroke:none
-class NW1 SNW
-
-classDef SCP fill:#e83,color:#fff,stroke:none
-class CP1 SCP
-class CP2 SCP
-
-classDef SDB fill:#46d,color:#fff,stroke:#fff
-class DB1 SDB
-
-classDef SST fill:#493,color:#fff,stroke:#fff
-class ST1 SST
-
-
 ```
