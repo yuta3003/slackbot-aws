@@ -4,10 +4,10 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/python3/Dockerfile
+      dockerfile: ./docker/Python3/Dockerfile
     volumes:
     - type: bind
       source: "./slackbot_aws"
-      target: "/root/slackbot_aws/"
+      target: "/root/dev/"
     tty: true
     env_file: .envrc
