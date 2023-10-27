@@ -1,7 +1,10 @@
 version: '3'
+
 services:
   app:
-    build: ./docker/python3
+    build:
+      context: .
+      dockerfile: ./docker/python3/Dockerfile
     volumes:
     - type: bind
       source: "./slackbot_aws"
