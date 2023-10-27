@@ -70,7 +70,7 @@ class VPC SVPC
 
 %%サービスのスタイル
 classDef SService fill:#aaa,color:#fff,stroke:#fff
-class OU1,OUS SService
+class USER,SLACK,Container SService
 
 classDef SCP fill:#e83,color:#fff,stroke:none
 class ECS1,ECS2 SCP
@@ -80,6 +80,13 @@ class ALB SNW
 
 classDef SDB fill:#46d,color:#fff,stroke:#fff
 class ECR,Repository SDB
+
+classDef SDevTool fill:#a7d,color:#fff,stroke:#fff
+class CodeBuild SDevTool
+
+classDef SDocker fill:#33f,color:#fff,stroke:#fff
+class Docker SDocker
+
 ```
 
 
