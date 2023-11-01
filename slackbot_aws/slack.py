@@ -2,13 +2,14 @@
     Slack: Slack操作Class
 """
 import os
+
 import requests
 from requests import Response
 
 
 class Slack:
     """Slack Class
-        post: post to slack
+    post: post to slack
     """
 
     def __init__(self):

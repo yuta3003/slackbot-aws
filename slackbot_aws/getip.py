@@ -1,8 +1,8 @@
 """Public IP Addressを取得
 """
 import json
-import aws
 
+import aws
 
 # jsonの読み込み処理
 with open("credentials.json", "r", encoding="utf-8") as credentials:

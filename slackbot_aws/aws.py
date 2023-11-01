@@ -1,22 +1,19 @@
 """AWS
     EC2: EC2を操作するClass
 """
-import os
 
 import boto3
 import logger
-
-from botocore.exceptions import ClientError
-
 import slack
+from botocore.exceptions import ClientError
 
 
 class EC2:
     """EC2を起動・停止する機能を提供する
-        start: EC2を起動
-        stop : EC2を停止
-        status: EC2の状態を取得
-        get_ec2_ip: EC2のIPアドレスを取得
+    start: EC2を起動
+    stop : EC2を停止
+    status: EC2の状態を取得
+    get_ec2_ip: EC2のIPアドレスを取得
     """
 
     def __init__(self, instance_id, region_name):
@@ -104,7 +101,7 @@ class EC2:
             self.slack.post(self.post_channel, "EC2を停止しました。")
 
     def status(self):
-        """ statusを取得
+        """statusを取得
 
         :param none:
         :return none:
@@ -149,7 +146,7 @@ class EC2:
             return
         if state_name == "running":
             self.__log.info(
-                f"ec2({self.__instance_id})\'s "
+                f"ec2({self.__instance_id})'s "
                 "public ip address is "
                 f"{ec2.network_interfaces_attribute[0]['Association']['PublicIpi']}."
             )
@@ -178,7 +175,7 @@ class EC2:
             return None
             # raise NotFoundResource(e)
 
-    def fetch_ec2_info():
+    def fetch_ec2_info(self):
         """すべてのリージョンから作成されていEC2情報を取得
 
         :return:EC2情報リスト
@@ -186,7 +183,7 @@ class EC2:
         answer_list = []
 
         # session = boto3.session.Session()
-        available_regions = self.__local_session.get_available_regions('ec2')
+        available_regions = self.__local_session.get_available_regions("ec2")
 
         for region in available_regions:
             try:

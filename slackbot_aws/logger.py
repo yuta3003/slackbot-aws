@@ -1,12 +1,13 @@
 """log用モジュール
 """
-from logging import Formatter, StreamHandler, getLogger, INFO
+from logging import INFO, Formatter, StreamHandler, getLogger
 
 
 class Logger:
     """
     log定義Class
     """
+
     def __init__(self, name=__name__):
         self.logger = getLogger(name)
         self.logger.setLevel(INFO)
@@ -21,21 +22,21 @@ class Logger:
         self.logger.addHandler(handler)
 
     def debug(self, msg):
-        """ message """
+        """message"""
         self.logger.debug(msg)
 
     def info(self, msg):
-        """ message """
+        """message"""
         self.logger.info(msg)
 
     def warn(self, msg):
-        """ message """
+        """message"""
         self.logger.warning(msg)
 
     def error(self, msg):
-        """ message """
+        """message"""
         self.logger.error(msg)
 
     def critical(self, msg):
-        """ message """
+        """message"""
         self.logger.critical(msg)

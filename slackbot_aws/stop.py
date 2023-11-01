@@ -1,8 +1,8 @@
 """EC2を停止するモジュール
 """
 import json
-import aws
 
+import aws
 
 # jsonの読み込み処理
 with open("credentials.json", "r", encoding="utf-8") as credentials:
@@ -10,7 +10,7 @@ with open("credentials.json", "r", encoding="utf-8") as credentials:
 
 
 def stop_ec2(ec2_machines: list):
-    """ stop ec2 """
+    """stop ec2"""
     if ec2_machines is None or len(ec2_machines) == 0:
         return
     for machine in ec2_machines:
