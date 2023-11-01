@@ -6,7 +6,6 @@ import os
 import boto3
 import logger
 
-# import requests
 from botocore.exceptions import ClientError
 
 import slack

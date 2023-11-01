@@ -8,6 +8,4 @@ RUN pip install -r requirements.txt
 WORKDIR /root/slackbot_aws
 COPY ./slackbot_aws ./
 
-ENTRYPOINT /usr/local/bin/python
-CMD: ["slackbot.py"]
-
+ENTRYPOINT /usr/local/bin/python /root/slackbot_aws/slackbot.py
