@@ -27,11 +27,9 @@ class EC2:
         """
         self.__log = logger.Logger("EC2")
         self.__instance_id = instance_id
-        self.__local_session = boto3.session.Session(
-            aws_access_key_id=os.environ["AccessKey"],
-            aws_secret_access_key=os.environ["SecretAccessKey"],
-            region_name=region_name,
-        )
+        self.__region_name = region_name
+
+        self.__local_session = boto3.session.Session()
         self.slack = slack.Slack()
         self.post_channel = "aws"
 
@@ -169,11 +167,46 @@ class EC2:
 
         :return: EC2を操作するオブジェクト
         """
-        self.__log.debug(f"ec2: {self.__instance_id}")
-        ec2_resource = self.__local_session.resource("ec2")
+        ec2_resource = self.__local_session.resource(
+            "ec2",
+            region_name=self.__region_name,
+        )
         try:
             return ec2_resource.Instance(self.__instance_id)
         except ClientError as error:
             self.__log.error(error)
             return None
             # raise NotFoundResource(e)
+
+    def fetch_ec2_info():
+        """すべてのリージョンから作成されていEC2情報を取得
+
+        :return:EC2情報リスト
+        """
+        answer_list = []
+
+        # session = boto3.session.Session()
+        available_regions = self.__local_session.get_available_regions('ec2')
+
+        for region in available_regions:
+            try:
+                answer_dict = {}
+                instances = []
+                ec2 = boto3.client(
+                    "ec2",
+                    region_name=region,
+                )
+                ec2_data = ec2.describe_instances()
+                for ec2_reservation in ec2_data["Reservations"]:
+                    for ec2_instance in ec2_reservation["Instances"]:
+                        if ec2_instance["InstanceId"]:
+                            answer_dict["Region"] = region
+                            answer_dict["Status"] = ec2_instance["State"]["Name"]
+                            answer_dict["InstanceID"] = ec2_instance["InstanceId"]
+
+                if answer_dict:
+                    answer_list.append(answer_dict)
+            except ClientError as error:
+                print(f"{region}は有効になっていないリージョンです。スキップします。")
+
+        return answer_list
