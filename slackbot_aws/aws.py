@@ -206,4 +206,8 @@ class EC2:
             except ClientError as error:
                 print(f"{region}は有効になっていないリージョンです。スキップします。")
 
-        return answer_list
+        self.slack.post(
+            self.post_channel,
+            "ec2 list: "
+            f"{answerlist}"
+        )
