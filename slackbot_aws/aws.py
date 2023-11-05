@@ -16,15 +16,13 @@ class EC2:
     get_ec2_ip: EC2のIPアドレスを取得
     """
 
-    def __init__(self, instance_id, region_name):
+    def __init__(self):
         """コンストラクタ
 
         :param instance_id: EC2のインスタンスID
         :param region_name: リージョン名
         """
         self.__log = logger.Logger("EC2")
-        self.__instance_id = instance_id
-        self.__region_name = region_name
 
         self.__local_session = boto3.session.Session()
         self.slack = slack.Slack()
