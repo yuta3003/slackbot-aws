@@ -146,7 +146,7 @@ class EC2:
             self.__log.info(
                 f"ec2({instance_id})'s "
                 "public ip address is "
-                f"{ec2.network_interfaces_attribute[0]['Association']['PublicIpi']}."
+                f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}."
             )
             self.slack.post(
                 self.post_channel,
