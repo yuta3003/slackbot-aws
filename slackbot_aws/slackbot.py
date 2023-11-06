@@ -25,14 +25,14 @@ def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2が起動します。")
     logger.info(body)
-    run.start_ec2(credential["EC2"])
+    run.start_ec2(credential["EC2"], command["text"])
 
 
 @app.command("/stop")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2が停止します。")
-    stop.stop_ec2(credential["EC2"])
+    stop.stop_ec2(credential["EC2"], command["text"])
     logger.info(body)
 
 
@@ -40,7 +40,7 @@ def handle_some_command(ack, body, command, logger):
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のステータスを確認します。")
-    status.status_ec2(credential["EC2"])
+    status.status_ec2(credential["EC2"], command["text"])
     logger.info(body)
 
 
