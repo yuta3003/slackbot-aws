@@ -1,15 +1,8 @@
 """EC2を起動するモジュール
 """
-import json
-
 import aws
 
-# jsonの読み込み処理
-with open("credentials.json", "r", encoding="utf-8") as credentials:
-    credential: dict[str, list] = json.load(credentials)
-
-
-def start_ec2(ec2_machines: list, instance):
+def start_ec2(instance):
     """start"""
     instance_list = instance.split()
     instance_id = instance_list[0]

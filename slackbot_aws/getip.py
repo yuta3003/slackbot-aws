@@ -1,15 +1,8 @@
 """Public IP Addressを取得
 """
-import json
-
 import aws
 
-# jsonの読み込み処理
-with open("credentials.json", "r", encoding="utf-8") as credentials:
-    credential: dict[str, list] = json.load(credentials)
-
-
-def get_ip(ec2_machines: list, instance):
+def get_ip(instance):
     """
     ec2のパブリックIPアドレスを取得します
 

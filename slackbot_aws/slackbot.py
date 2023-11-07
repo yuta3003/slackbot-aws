@@ -1,21 +1,17 @@
 """slackbotのスラッシュコマンド用モジュール
 """
-import json
 import os
 
 import getip
 import run
 import status
 import stop
+import fetch
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
 slack_bot_token = os.environ["SLACK_BOT_TOKEN"]
 slack_app_token = os.environ["SLACK_APP_TOKEN"]
-
-# jsonの読み込み処理
-with open("credentials.json", "r", encoding="utf-8") as credentials:
-    credential: dict[str, list] = json.load(credentials)
 
 app = App(token=slack_bot_token)
 
@@ -25,14 +21,14 @@ def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2が起動します。")
     logger.info(body)
-    run.start_ec2(credential["EC2"], command["text"])
+    run.start_ec2(command["text"])
 
 
 @app.command("/stop")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2が停止します。")
-    stop.stop_ec2(credential["EC2"], command["text"])
+    stop.stop_ec2(command["text"])
     logger.info(body)
 
 
@@ -40,22 +36,22 @@ def handle_some_command(ack, body, command, logger):
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のステータスを確認します。")
-    status.status_ec2(credential["EC2"], command["text"])
+    status.status_ec2(command["text"])
     logger.info(body)
-
 
 @app.command("/getip")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のIPアドレスを取得します。")
-    getip.get_ip(credential["EC2"], command["text"])
+    getip.get_ip(command["text"])
     logger.info(body)
 
 
-# @app.command("/ip")
-# def handle_some_command(ack, body, logger):
-#    ack("IPアドレスを取得します。")
-#    getIp.get_ip_ec2(credential["EC2"])
-#    logger.info(body)
+@app.command("/fetchEC2")
+def handle_some_command(ack, body, logger):
+    """command"""
+    ack("EC2のステータスを取得します。")
+    fetch.ec2()
+    logger.info(body)
 
 SocketModeHandler(app, slack_app_token).start()
