@@ -2,11 +2,11 @@
 """
 import os
 
+import fetch
 import getip
 import run
 import status
 import stop
-import fetch
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
@@ -39,6 +39,7 @@ def handle_some_command(ack, body, command, logger):
     status.status_ec2(command["text"])
     logger.info(body)
 
+
 @app.command("/getip")
 def handle_some_command(ack, body, command, logger):
     """command"""
@@ -53,5 +54,6 @@ def handle_some_command(ack, body, logger):
     ack("EC2のステータスを取得します。")
     fetch.ec2()
     logger.info(body)
+
 
 SocketModeHandler(app, slack_app_token).start()

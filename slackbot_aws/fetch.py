@@ -2,10 +2,8 @@
 """
 import aws
 
-def ec2():
+
+def ec2_info():
     """start"""
     ec2 = aws.EC2()
     ec2.fetch_ec2_info()
-
-if __name__ == "__main__":
-    ec2(credential["EC2"])
