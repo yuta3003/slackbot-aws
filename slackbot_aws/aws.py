@@ -113,9 +113,7 @@ class EC2:
             self.__log.error(error)
             # raise NotFoundResource(e)
         self.__log.info(f"ec2({instance_id}) is {state_name}.")
-        self.slack.post(
-            self.post_channel, f"ec2({instance_id}) is {state_name}."
-        )
+        self.slack.post(self.post_channel, f"ec2({instance_id}) is {state_name}.")
 
     def get_ec2_ip(self, instance_id, region_name):
         """IP アドレスを取得
@@ -204,8 +202,4 @@ class EC2:
             except ClientError as error:
                 print(f"{region}は有効になっていないリージョンです。スキップします。")
 
-        self.slack.post(
-            self.post_channel,
-            "ec2 list: "
-            f"{answerlist}"
-        )
+        self.slack.post(self.post_channel, "ec2 list: " f"{answer_list}")
