@@ -25,13 +25,10 @@ class Slack:
         """
         url: str = "https://slack.com/api/chat.postMessage"
         headers: dict[str, str] = {"Authorization": "Bearer " + self.slack_bot_token}
-        data: dict[str, str] = {
-            "channel": post_channel,
-            "attachments": [
-                post_message
-            ]
-        }
+        data: dict[str, str] = {"channel": post_channel, "attachments": [post_message]}
         res: Response = requests.post(url, headers=headers, data=data)
+
+
 # {
 #   "channel": "C123ABC456",
 #   "attachments": [
