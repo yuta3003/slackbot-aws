@@ -3,7 +3,7 @@
 import aws
 
 
-def get_ip(instance):
+def get_ec2_ip(instance):
     """
     ec2のパブリックIPアドレスを取得します
 
@@ -14,4 +14,4 @@ def get_ip(instance):
     instance_id = instance_list[0]
     region_name = instance_list[1]
     ec2 = aws.EC2()
-    ec2.get_ec2_ip(instance_id=instance_id, region_name=region_name)
+    ec2.get_ip(instance_id=instance_id, region_name=region_name)
