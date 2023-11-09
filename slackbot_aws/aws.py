@@ -14,14 +14,10 @@ class EC2:
     stop : EC2を停止
     status: EC2の状態を取得
     get_ec2_ip: EC2のIPアドレスを取得
+    fetch_ec2_info: EC2の情報リストを取得
     """
 
     def __init__(self):
-        """コンストラクタ
-
-        :param instance_id: EC2のインスタンスID
-        :param region_name: リージョン名
-        """
         self.__log = logger.Logger("EC2")
 
         self.__local_session = boto3.session.Session()
@@ -31,7 +27,8 @@ class EC2:
     def start(self, instance_id, region_name):
         """起動
 
-        :param none:
+        :param instance_id:
+        :param region_name:
         :return none:
         """
         ec2 = self.__create_ec2(instance_id, region_name)
@@ -68,7 +65,8 @@ class EC2:
     def stop(self, instance_id, region_name):
         """停止
 
-        :param none:
+        :param instance_id:
+        :param region_name:
         :return none:
         """
         ec2 = self.__create_ec2(instance_id, region_name)
@@ -101,7 +99,8 @@ class EC2:
     def status(self, instance_id, region_name):
         """statusを取得
 
-        :param none:
+        :param instance_id:
+        :param region_name:
         :return none:
         """
         ec2 = self.__create_ec2(instance_id, region_name)
@@ -115,10 +114,11 @@ class EC2:
         self.__log.info(f"ec2({instance_id}) is {state_name}.")
         self.slack.post(self.post_channel, f"ec2({instance_id}) is {state_name}.")
 
-    def get_ec2_ip(self, instance_id, region_name):
+    def get_ip(self, instance_id, region_name):
         """IP アドレスを取得
 
-        :param none:
+        :param instance_id:
+        :param region_name:
         :return none:
         """
         ec2 = self.__create_ec2(instance_id, region_name)
@@ -158,6 +158,8 @@ class EC2:
     def __create_ec2(self, instance_id, region_name):
         """EC2を操作するオブジェクトを生成する
 
+        :param instance_id:
+        :param region_name:
         :return: EC2を操作するオブジェクト
         """
         ec2_resource = self.__local_session.resource(
@@ -174,6 +176,7 @@ class EC2:
     def fetch_ec2_info(self):
         """すべてのリージョンから作成されていEC2情報を取得
 
+        :param none:
         :return:EC2情報リスト
         """
         answer_list = []
