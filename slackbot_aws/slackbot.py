@@ -32,7 +32,7 @@ def handle_some_command(ack, body, command, logger):
     logger.info(body)
 
 
-@app.command("/status")
+@app.command("/state")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のステータスを確認します。")
