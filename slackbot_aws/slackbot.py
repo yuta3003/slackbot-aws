@@ -44,7 +44,7 @@ def handle_some_command(ack, body, command, logger):
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のIPアドレスを取得します。")
-    getip.get_ip(command["text"])
+    getip.get_ec2_ip(command["text"])
     logger.info(body)
 
 
