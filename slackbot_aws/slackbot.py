@@ -52,7 +52,7 @@ def handle_some_command(ack, body, command, logger):
 def handle_some_command(ack, body, logger):
     """command"""
     ack("EC2のステータスを取得します。")
-    fetch.ec2()
+    fetch.ec2_info()
     logger.info(body)
 
 
