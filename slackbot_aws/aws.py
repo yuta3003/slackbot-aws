@@ -45,21 +45,34 @@ class EC2:
         #     return
         if state_name == "stopped":
             self.__log.info(f"try start ec2({instance_id}).")
+            post_message = {
+                "text": f"EC2を起動します。 \nInstance ID: {instance_id}"
+            }
             self.slack.post(
-                self.post_channel, f"EC2を起動します。 \nInstance ID: {instance_id}"
+                self.post_channel, post_message
             )
 
             ec2.start()
             ec2.wait_until_running()
 
             self.__log.info(f"ec2({instance_id}) is started.")
+            post_message = {
+                "fields": [
+                    {
+                        "title": "Public IP Address",
+                        "value": f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}",
+                        "short": "true"
+                    },
+                    {
+                        "title": "Private IP Address",
+                        "value": f"{ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
+                        "short": "true"
+                    }
+                ]
+            }
             self.slack.post(
                 self.post_channel,
-                "Public IP Address: "
-                f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
-                "\n"
-                "Private IP Address: "
-                f"{ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
+                post_message
             )
 
     def stop(self, instance_id, region_name):
@@ -87,8 +100,12 @@ class EC2:
         #     return
         if state_name == "running":
             self.__log.info(f"try stop ec2({instance_id}).")
+            post_message = {
+                "text": f"EC2を停止します。 \nInstance ID: {instance_id}"
+            }
             self.slack.post(
-                self.post_channel, f"EC2を停止します。 \nInstance ID: {instance_id}"
+                self.post_channel,
+                post_message
             )
 
             ec2.stop()
@@ -112,7 +129,15 @@ class EC2:
             self.__log.error(error)
             # raise NotFoundResource(e)
         self.__log.info(f"ec2({instance_id}) is {state_name}.")
-        self.slack.post(self.post_channel, f"ec2({instance_id}) is {state_name}.")
+
+        post_message = {
+            "text": f"ec2({instance_id}) is {state_name}."
+        }
+        self.slack.post(
+            self.post_channel,
+            post_message
+        )
+
 
     def get_ip(self, instance_id, region_name):
         """IP アドレスを取得
@@ -146,13 +171,24 @@ class EC2:
                 "public ip address is "
                 f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}."
             )
+
+            post_message = {
+                "fields": [
+                    {
+                        "title": "Public IP Address",
+                        "value": f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}",
+                        "short": "true"
+                    },
+                    {
+                        "title": "Private IP Address",
+                        "value": f"{ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
+                        "short": "true"
+                    }
+                ]
+            }
             self.slack.post(
                 self.post_channel,
-                "Public IP Address: "
-                f"{ec2.network_interfaces_attribute[0]['Association']['PublicIp']}"
-                "\n"
-                "Private IP Address: "
-                f"{ec2.network_interfaces_attribute[0]['PrivateIpAddresses'][0]['PrivateIpAddress']}",
+                post_message
             )
 
     def __create_ec2(self, instance_id, region_name):
@@ -205,4 +241,7 @@ class EC2:
             except ClientError as error:
                 print(f"{region}は有効になっていないリージョンです。スキップします。")
 
-        self.slack.post(self.post_channel, "ec2 list: " f"{answer_list}")
+        post_message = {
+            "text": f"ec2 list: {answer_list}"
+        }
+        self.slack.post(self.post_channel, post_message)
