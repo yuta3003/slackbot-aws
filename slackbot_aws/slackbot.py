@@ -20,15 +20,17 @@ app = App(token=slack_bot_token)
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2が起動します。")
+    instance_id, region_name = command["text"].split()
+    run.start_ec2(instance_id, region_name)
     logger.info(body)
-    run.start_ec2(command["text"])
 
 
 @app.command("/stop")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2が停止します。")
-    stop.stop_ec2(command["text"])
+    instance_id, region_name = command["text"].split()
+    stop.stop_ec2(instance_id, region_name)
     logger.info(body)
 
 
@@ -36,7 +38,8 @@ def handle_some_command(ack, body, command, logger):
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のステータスを確認します。")
-    status.status_ec2(command["text"])
+    instance_id, region_name = command["text"].split()
+    status.status_ec2(instance_id, region_name)
     logger.info(body)
 
 
@@ -44,7 +47,8 @@ def handle_some_command(ack, body, command, logger):
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のIPアドレスを取得します。")
-    getip.get_ec2_ip(command["text"])
+    instance_id, region_name = command["text"].split()
+    getip.get_ec2_ip(instance_id, region_name)
     logger.info(body)
 
 
