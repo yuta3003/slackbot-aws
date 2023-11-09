@@ -12,7 +12,7 @@ slack_app_token = os.environ["SLACK_APP_TOKEN"]
 app = App(token=slack_bot_token)
 
 
-@app.command("/run")
+@app.command("/start")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2が起動します。")
@@ -32,7 +32,7 @@ def handle_some_command(ack, body, command, logger):
     logger.info(body)
 
 
-@app.command("/state")
+@app.command("/status")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のステータスを確認します。")
@@ -42,7 +42,7 @@ def handle_some_command(ack, body, command, logger):
     logger.info(body)
 
 
-@app.command("/getip")
+@app.command("/ip")
 def handle_some_command(ack, body, command, logger):
     """command"""
     ack("EC2のIPアドレスを取得します。")
@@ -52,7 +52,7 @@ def handle_some_command(ack, body, command, logger):
     logger.info(body)
 
 
-@app.command("/fetchEC2")
+@app.command("/fetch")
 def handle_some_command(ack, body, logger):
     """command"""
     ack("EC2のステータスを取得します。")
