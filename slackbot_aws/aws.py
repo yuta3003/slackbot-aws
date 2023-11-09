@@ -41,8 +41,6 @@ class EC2:
         if state_name == "running":
             self.__log.info(f"ec2({instance_id}) is already started.")
             return
-        # elif state_name in {'pending', 'shutting-down', 'terminated', 'stopping'}:
-        #     return
         if state_name == "stopped":
             self.__log.info(f"try start ec2({instance_id}).")
             post_message = {
@@ -86,10 +84,7 @@ class EC2:
         try:
             state_name = ec2.state["Name"]
         except AttributeError as error:
-            # AttributeErrorは、昔あったインスタンスIDを使うと、（Pythonの）インスタンスは生成されるが、
-            # 属性stateにアクセスできず例外が発生する
             self.__log.error(error)
-            # raise NotFoundResource(e)
 
         self.__log.debug(f"state is {state_name}")
         if state_name == "stopped":
@@ -124,10 +119,8 @@ class EC2:
         try:
             state_name = ec2.state["Name"]
         except AttributeError as error:
-            # AttributeErrorは、昔あったインスタンスIDを使うと、（Pythonの）インスタンスは生成されるが、
-            # 属性stateにアクセスできず例外が発生する
             self.__log.error(error)
-            # raise NotFoundResource(e)
+
         self.__log.info(f"ec2({instance_id}) is {state_name}.")
 
         post_message = {
@@ -150,8 +143,6 @@ class EC2:
         try:
             state_name = ec2.state["Name"]
         except AttributeError as error:
-            # AttributeErrorは、昔あったインスタンスIDを使うと、（Pythonの）インスタンスは生成されるが、
-            # 属性stateにアクセスできず例外が発生する
             self.__log.error(error)
 
         self.__log.debug(f"state is {state_name}")
@@ -207,7 +198,6 @@ class EC2:
         except ClientError as error:
             self.__log.error(error)
             return None
-            # raise NotFoundResource(e)
 
     def fetch_ec2_info(self):
         """すべてのリージョンから作成されていEC2情報を取得
@@ -217,7 +207,6 @@ class EC2:
         """
         answer_list = []
 
-        # session = boto3.session.Session()
         available_regions = self.__local_session.get_available_regions("ec2")
 
         for region in available_regions:
